@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Estilo & Glamour | Catálogo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <h1>Estilo & Glamour</h1>
+    <p>Bisutería y accesorios artesanales</p>
+  </div>
+</header>
+
+<nav class="site-nav container" id="categoriasNav">
+  <div class="filtros">
+    <label>
+      Precio mínimo (S/):
+      <input type="number" id="precioMin" placeholder="0">
+    </label>
+
+    <label>
+      Precio máximo (S/):
+      <input type="number" id="precioMax" placeholder="200">
+    </label>
+
+    <button id="btnFiltrar">Filtrar</button>
+  </div>
+  <div class="categorias" id="categoriasButtons">
+    <!-- Categories populated by script -->
+  </div>
+</nav>
+
+<main class="container" id="catalogo"></main>
+
+<a class="whatsapp-float"
+   href="https://wa.me/51900008840"
+   target="_blank">WhatsApp</a>
+
+<script src="script.js"></script>
+</body>
+</html>

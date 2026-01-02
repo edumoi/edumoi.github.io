@@ -1,0 +1,50 @@
+{
+  "aretes": [
+    {
+      "codigo": "EG-A01",
+      "nombre": "Aretes Dorados Florales",
+      "precio": 35,
+      "descripcion": "Aretes con acabado dorado y diseño floral, ligeros y cómodos.",
+      "imagen": "aretes01.jpg"
+    },
+    {
+      "codigo": "EG-A02",
+      "nombre": "Aretes Perla Vintage",
+      "precio": 45,
+      "descripcion": "Perlas sintéticas con baño dorado, look clásico.",
+      "imagen": "aretes01.jpg"
+    }
+  ],
+  "pulseras": [
+    {
+      "codigo": "EG-P01",
+      "nombre": "Pulsera Elegante Perlas",
+      "precio": 40,
+      "descripcion": "Pulsera de perlas y cierre dorado, ideal para eventos.",
+      "imagen": "pulsera01.jpg"
+    },
+    {
+      "codigo": "EG-P02",
+      "nombre": "Pulsera Trenzada",
+      "precio": 28,
+      "descripcion": "Diseño artesanal trenzado con detalles metálicos.",
+      "imagen": "pulsera01.jpg"
+    }
+  ],
+  "collares": [
+    {
+      "codigo": "EG-C01",
+      "nombre": "Collar Minimal Dorado",
+      "precio": 55,
+      "descripcion": "Cadena fina con dije minimalista en tono dorado.",
+      "imagen": "collar01.jpg"
+    },
+    {
+      "codigo": "EG-C02",
+      "nombre": "Collar Boho Capas",
+      "precio": 68,
+      "descripcion": "Collar de varias capas con cuentas y detalles metálicos.",
+      "imagen": "collar01.jpg"
+    }
+  ]
+}
