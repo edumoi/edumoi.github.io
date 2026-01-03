@@ -1,17 +1,18 @@
 :root{
-  --bg: #FFFFFF;
+  --bg: #F7F7F8; /* page background */
   --gold: #CBA135;
-  --dark: #222222;
-  --soft-gray: #FAFAFB;
-  --muted: #BDBDBD;
-  --accent: #ff2d55; /* SHEIN-like pink */
-  --accent-dark: #e0254a;
+  --dark: #0b1220; /* richer near-black */
+  --soft-gray: #F7F7F8;
+  --muted: #9B9B9B;
+  --accent: #FF2D55; /* primary SHEIN pink */
+  --accent-dark: #E0224A;
+  --accent-soft: #FFF2F5;
   --card-bg: #ffffff;
 }
 
 *{box-sizing:border-box}
 body{
-  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-family: Poppins, Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   margin:0;
   background:var(--bg);
   color:var(--dark);
@@ -29,6 +30,7 @@ body{
 .site-header .search input{width:60%;padding:12px;border-radius:8px;border:1px solid #eee;background:#fff}
 .site-header .search button{padding:12px 14px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-weight:700}
 .site-header .actions a{margin-left:12px;color:var(--muted);text-decoration:none;font-size:14px}
+.site-header .brand h1{font-family:Poppins, sans-serif}
 
 
 .hero{background:#fff;padding:18px 0;border-bottom:1px solid #f3f3f3}
@@ -56,7 +58,7 @@ body{
 .categorias button{background:transparent;border:1px solid #eee;padding:8px 12px;border-radius:6px;cursor:pointer}
 .categorias button.active{background:var(--gold);border-color:var(--gold);color:var(--dark);font-weight:700}
 
-.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:22px}
+.catalog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
 .producto{background:var(--card-bg);padding:16px;border-radius:10px;text-align:left;box-shadow:0 6px 18px rgba(16,24,40,0.06);display:flex;flex-direction:column;gap:10px;transition:transform .18s ease,box-shadow .18s ease}
 .producto:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(16,24,40,0.08)}
 .producto .imgwrap{position:relative;border-radius:10px;overflow:hidden;padding-bottom:100%}
@@ -76,25 +78,42 @@ body{
 
 .marca-agua{position:absolute;right:8px;bottom:8px;opacity:0.08;font-weight:800}
 
-@media (max-width:1000px){
-  .site-header .search input{width:70%}
-  .filters{display:none}
-  .shop{padding:18px 0}
-}
-
-@media (max-width:700px){
-  .catalog-grid{grid-template-columns:repeat(2,1fr)}
-  .site-header .search input{width:60%}
-}
-
-@media (min-width:1400px){
-  .container{max-width:1300px}
-  .catalog-grid{gap:28px}
-}
-
+/* Responsive breakpoints: desktop -> tablet -> mobile -> small phones */
 .no-results{padding:40px;text-align:center;color:var(--muted)}
 
-@media (max-width:600px){
-  .site-header h1{font-size:20px}
-  .filtros input{width:100px}
+@media (min-width:1200px){
+  .catalog-grid{grid-template-columns:repeat(4,1fr);gap:28px}
+  .container{max-width:1200px}
+}
+
+@media (min-width:900px) and (max-width:1199px){
+  .catalog-grid{grid-template-columns:repeat(3,1fr);gap:22px}
+  .container{max-width:980px}
+}
+
+@media (min-width:700px) and (max-width:899px){
+  .catalog-grid{grid-template-columns:repeat(2,1fr);gap:18px}
+  .site-header .search input{width:55%}
+  .filters{width:220px}
+}
+
+@media (max-width:699px){
+  .site-header .header-inner{flex-direction:column;align-items:flex-start;gap:12px;padding:12px 0}
+  .site-header .search{width:100%;justify-content:flex-start}
+  .site-header .search input{width:100%}
+  .site-header .search button{width:100%;margin-top:6px}
+  .filters{display:none}
+  .shop{padding:16px 0}
+  .catalog-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+  .producto .desc{height:36px}
+  .hero .hero-banner{padding:20px;font-size:15px}
+}
+
+@media (max-width:420px){
+  .catalog-grid{grid-template-columns:repeat(1,1fr);gap:12px}
+  .producto{padding:12px}
+  .producto h4{font-size:14px}
+  .precio{font-size:14px}
+  .site-header .brand h1{font-size:20px}
+  .site-header .brand p{font-size:12px}
 }
