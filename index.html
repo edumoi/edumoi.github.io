@@ -9,32 +9,68 @@
 <body>
 
 <header class="site-header">
-  <div class="container">
-    <h1>Estilo & Glamour</h1>
-    <p>Bisutería y accesorios artesanales</p>
+  <div class="container header-inner">
+    <div class="brand">
+      <h1>Estilo & Glamour</h1>
+      <p>Bisutería y accesorios artesanales</p>
+    </div>
+    <div class="search">
+      <input id="searchInput" placeholder="Buscar productos, p. ej. 'aretes'" />
+      <button id="btnBuscar">Buscar</button>
+    </div>
+    <div class="actions">
+      <a href="#">Iniciar sesión</a>
+      <a href="#">Carrito</a>
+    </div>
   </div>
 </header>
 
-<nav class="site-nav container" id="categoriasNav">
-  <div class="filtros">
-    <label>
-      Precio mínimo (S/):
-      <input type="number" id="precioMin" placeholder="0">
-    </label>
-
-    <label>
-      Precio máximo (S/):
-      <input type="number" id="precioMax" placeholder="200">
-    </label>
-
-    <button id="btnFiltrar">Filtrar</button>
+<section class="hero">
+  <div class="container">
+    <div class="hero-banner">Colección Destacada - Nuevos Llegados</div>
   </div>
-  <div class="categorias" id="categoriasButtons">
-    <!-- Categories populated by script -->
-  </div>
-</nav>
+</section>
 
-<main class="container" id="catalogo"></main>
+<main class="container shop">
+  <aside class="filters" id="leftFilters">
+    <h3>Filtros</h3>
+    <div class="filtro-categorias">
+      <h4>Categorías</h4>
+      <div class="categorias" id="categoriasButtons">
+        <!-- Categories populated by script -->
+      </div>
+    </div>
+
+    <div class="filtro-precio">
+      <h4>Precio</h4>
+      <label>Min
+        <input type="number" id="precioMin" placeholder="0">
+      </label>
+      <label>Max
+        <input type="number" id="precioMax" placeholder="200">
+      </label>
+      <button id="btnFiltrar">Aplicar</button>
+    </div>
+  </aside>
+
+  <section class="catalogo-wrap">
+    <div class="catalogo-topbar">
+      <div id="resultInfo"></div>
+      <div class="sort">
+        <label>Ordenar por:</label>
+        <select id="sortSelect">
+          <option value="default">Relevancia</option>
+          <option value="price-asc">Precio: Bajo a Alto</option>
+          <option value="price-desc">Precio: Alto a Bajo</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="catalogo"></div>
+
+    <div class="pagination" id="pagination"></div>
+  </section>
+</main>
 
 <a class="whatsapp-float"
    href="https://wa.me/51900008840"
