@@ -17,6 +17,11 @@
     <div class="search">
       <input id="searchInput" placeholder="Buscar productos, p. ej. 'aretes'" />
       <button id="btnBuscar">Buscar</button>
+      <button id="btnLogin" class="login-btn">Iniciar sesión</button>
+      <div id="localCopyIndicator" class="local-indicator hidden" title="Hay una copia editada en LocalStorage">
+        <span class="local-text">Copia local</span>
+        <button id="btnClearLocal" class="clear-local" title="Eliminar copia local">Limpiar</button>
+      </div>
     </div>
     <!-- acciones removidas: Iniciar sesión / Carrito -->
   </div>
@@ -73,6 +78,47 @@
    href="https://wa.me/51900008840"
    target="_blank">WhatsApp</a>
 
+<!-- Login modal -->
+<div id="loginModal" class="modal hidden" aria-hidden="true">
+  <div class="modal-content">
+    <h3>Acceso administrador</h3>
+    <label>Usuario<br><input id="loginUser" type="text" autocomplete="username"></label>
+    <label>Contraseña<br><input id="loginPass" type="password" autocomplete="current-password"></label>
+    <div class="modal-actions">
+      <button id="loginSubmit">Entrar</button>
+      <button id="loginCancel">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Editor de productos (visible tras login) -->
+<section id="editorSection" class="editor hidden container">
+  <h2>Editor de Productos</h2>
+  <div class="editor-row">
+    <label>Categoría<br>
+      <select id="editCategory"></select>
+    </label>
+    <label>Producto<br>
+      <select id="editProduct"></select>
+    </label>
+  </div>
+  <div class="editor-form">
+    <label>Código<br><input id="prodCodigo" readonly></label>
+    <label>Nombre<br><input id="prodNombre"></input></label>
+    <label>Precio<br><input id="prodPrecio" type="number" step="0.01"></label>
+    <label>Descripción<br><textarea id="prodDescripcion"></textarea></label>
+    <label>Imagen (ruta)<br><input id="prodImagen"></label>
+  </div>
+  <div class="editor-actions">
+    <button id="btnSaveProd">Guardar cambios</button>
+    <button id="btnAddProd">Agregar nuevo</button>
+    <button id="btnDeleteProd">Eliminar</button>
+    <button id="btnDownloadJSON">Descargar JSON</button>
+    <button id="btnSaveLocal">Guardar en LocalStorage</button>
+    <button id="btnLogout">Cerrar sesión</button>
+  </div>
+  <p class="nota">Nota: Para subir los cambios al servidor necesitas un backend o editar `productos.json` en el repositorio. Aquí puedes descargar el JSON editado o guardarlo en tu navegador.</p>
+</section>
 <script src="script.js"></script>
 </body>
 </html>
