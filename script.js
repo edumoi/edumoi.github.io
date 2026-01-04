@@ -5,8 +5,9 @@ let perPage = 12;
 let currentList = [];
 
 // Configurar la URL de subida en el hosting (debe existir un endpoint que acepte POST multipart/form-data)
-// Ejemplo: const UPLOAD_URL = 'https://midominio.com/upload-image';
-const UPLOAD_URL = '';
+// Reemplaza la URL de ejemplo por la de tu servidor que procese la subida.
+// Ejemplo de respuesta esperada: { "success": true, "filename": "catalog/imagen.jpg" }
+const UPLOAD_URL = 'https://edumoi.github.io/img';
 
 // Sube la imagen al servidor si UPLOAD_URL está configurada.
 // Devuelve el nombre/ruta del archivo tal como lo espera el sitio (por ejemplo 'aretes01.jpg' o 'catalog/imagen.jpg').
