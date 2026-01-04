@@ -4,6 +4,29 @@ let currentPage = 1;
 let perPage = 12;
 let currentList = [];
 
+// Configurar la URL de subida en el hosting (debe existir un endpoint que acepte POST multipart/form-data)
+// Ejemplo: const UPLOAD_URL = 'https://midominio.com/upload-image';
+const UPLOAD_URL = '';
+
+// Sube la imagen al servidor si UPLOAD_URL está configurada.
+// Devuelve el nombre/ruta del archivo tal como lo espera el sitio (por ejemplo 'aretes01.jpg' o 'catalog/imagen.jpg').
+async function uploadImage(file){
+  if (!file) throw new Error('No hay archivo');
+  if (!UPLOAD_URL) {
+    alert('No se ha configurado `UPLOAD_URL`. La imagen no se subirá al servidor automáticamente.');
+    return file.name;
+  }
+
+  const fd = new FormData();
+  fd.append('file', file);
+  const res = await fetch(UPLOAD_URL, { method: 'POST', body: fd });
+  if (!res.ok) throw new Error('Respuesta del servidor: ' + res.status);
+  const json = await res.json();
+  if (json && (json.filename || json.name)) return json.filename || json.name;
+  if (json && json.success && json.path) return json.path;
+  throw new Error('Respuesta inesperada del servidor');
+}
+
 fetch('productos.json')
   .then(res => res.json())
   .then(json => {
@@ -11,9 +34,7 @@ fetch('productos.json')
     initCategorias(Object.keys(json));
     const primera = Object.keys(json)[0];
     if (primera) mostrarCategoria(primera);
-    document.getElementById('btnBuscar').addEventListener('click', aplicarBusqueda);
     document.getElementById('sortSelect').addEventListener('change', ()=> { currentPage = 1; aplicarFiltroYRender(); });
-    document.getElementById('searchInput').addEventListener('keyup', (e)=> { if (e.key === 'Enter') aplicarBusqueda(); });
   })
   .catch(err => {
     console.error('Error cargando productos.json', err);
@@ -49,7 +70,7 @@ function aplicarFiltroYRender(){
   const min = parseFloat(document.getElementById('precioMin').value) || 0;
   const maxVal = document.getElementById('precioMax').value;
   const max = maxVal === '' ? Infinity : parseFloat(maxVal);
-  const q = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+  const q = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
 
   let base = [];
   if (categoriaActual) base = datos[categoriaActual] || [];
@@ -243,6 +264,23 @@ function initEditor(){
   qs('btnDownloadJSON').addEventListener('click', ()=> downloadJSONCopy());
   qs('btnSaveLocal').addEventListener('click', ()=> { localStorage.setItem('productos_edited', JSON.stringify(datos)); alert('Guardado en LocalStorage'); });
 
+  // preview de imagen al seleccionar un archivo
+  const fileEl = qs('prodImagenFile');
+  if (fileEl) {
+    fileEl.addEventListener('change', ()=>{
+      const preview = qs('prodImagenPreview');
+      const f = fileEl.files && fileEl.files[0];
+      if (preview) {
+        if (f) {
+          const url = URL.createObjectURL(f);
+          preview.innerHTML = `<img src="${url}" alt="vista" style="max-width:160px;max-height:160px;">`;
+          const img = preview.querySelector('img');
+          if (img) img.onload = ()=> URL.revokeObjectURL(url);
+        } else preview.innerHTML = '';
+      }
+    });
+  }
+
   // if there is a local edited copy, load it to datos
   const local = localStorage.getItem('productos_edited');
   if (local) {
@@ -273,28 +311,51 @@ function loadProductToForm(cat, codigo){
   qs('prodNombre').value = p.nombre || '';
   qs('prodPrecio').value = p.precio || '';
   qs('prodDescripcion').value = p.descripcion || '';
+  // almacenar ruta en campo oculto; mostrar vista previa de la imagen
   qs('prodImagen').value = p.imagen || '';
+  const preview = qs('prodImagenPreview');
+  const fileEl = qs('prodImagenFile');
+  if (fileEl) fileEl.value = '';
+  if (preview) {
+    if (p.imagen) preview.innerHTML = `<img src="img/${p.imagen}" alt="vista" style="max-width:160px;max-height:160px;">`;
+    else preview.innerHTML = '';
+  }
 }
 
-function clearProductForm(){ qs('prodCodigo').value=''; qs('prodNombre').value=''; qs('prodPrecio').value=''; qs('prodDescripcion').value=''; qs('prodImagen').value=''; }
+function clearProductForm(){ qs('prodCodigo').value=''; qs('prodNombre').value=''; qs('prodPrecio').value=''; qs('prodDescripcion').value=''; qs('prodImagen').value=''; const preview = qs('prodImagenPreview'); if (preview) preview.innerHTML = ''; const fileEl = qs('prodImagenFile'); if (fileEl) fileEl.value = ''; }
 
-function saveProductFromForm(){
+async function saveProductFromForm(){
   const cat = qs('editCategory').value;
   const codigo = qs('prodCodigo').value;
   if (!cat) return alert('Seleccione una categoría');
   if (!codigo) return alert('Seleccione un producto o agregue uno nuevo');
   const list = datos[cat] || [];
   const idx = list.findIndex(x=> x.codigo === codigo);
+
+  // si hay archivo seleccionado, subirlo primero
+  const fileEl = qs('prodImagenFile');
+  let imagenValor = qs('prodImagen').value || '';
+  if (fileEl && fileEl.files && fileEl.files[0]) {
+    try {
+      const returned = await uploadImage(fileEl.files[0]);
+      imagenValor = returned;
+    } catch(err){
+      alert('Error subiendo imagen: ' + (err.message || err));
+      return;
+    }
+  }
+
   const updated = {
     codigo: codigo,
     nombre: qs('prodNombre').value,
     precio: Number(qs('prodPrecio').value) || 0,
     descripcion: qs('prodDescripcion').value,
-    imagen: qs('prodImagen').value
+    imagen: imagenValor
   };
   if (idx >= 0) list[idx] = updated;
   else list.push(updated);
   datos[cat] = list;
+  qs('prodImagen').value = imagenValor;
   alert('Producto actualizado en memoria');
   aplicarFiltroYRender();
   populateProductsForCategory(cat);

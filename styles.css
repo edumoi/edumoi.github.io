@@ -24,9 +24,7 @@ body{
 .site-header .header-inner{display:flex;align-items:center;gap:16px;justify-content:space-between}
 .site-header .brand h1{margin:0;font-size:22px;letter-spacing:.4px}
 .site-header .brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
-.site-header .search{flex:1;display:flex;gap:8px;justify-content:center}
-.site-header .search input{width:60%;padding:10px;border-radius:6px;border:1px solid #e6e6e6}
-.site-header .search button{padding:10px 12px;border-radius:6px;border:none;background:var(--accent);color:#fff;cursor:pointer}
+.site-header .search{flex:1;display:flex;gap:8px;justify-content:flex-end}
 .site-header .actions a{margin-left:12px;color:var(--muted);text-decoration:none}
 
 .hero{background:#fff;padding:10px 0;border-bottom:1px solid #fafafa}

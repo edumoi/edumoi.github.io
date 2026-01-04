@@ -15,8 +15,6 @@
       <p>Bisutería y accesorios artesanales</p>
     </div>
     <div class="search">
-      <input id="searchInput" placeholder="Buscar productos, p. ej. 'aretes'" />
-      <button id="btnBuscar">Buscar</button>
       <button id="btnLogin" class="login-btn">Iniciar sesión</button>
       <div id="localCopyIndicator" class="local-indicator hidden" title="Hay una copia editada en LocalStorage">
         <span class="local-text">Copia local</span>
@@ -107,7 +105,9 @@
     <label>Nombre<br><input id="prodNombre"></input></label>
     <label>Precio<br><input id="prodPrecio" type="number" step="0.01"></label>
     <label>Descripción<br><textarea id="prodDescripcion"></textarea></label>
-    <label>Imagen (ruta)<br><input id="prodImagen"></label>
+    <label>Imagen (archivo)<br><input id="prodImagenFile" type="file" accept="image/*"></label>
+    <div id="prodImagenPreview" class="img-preview"></div>
+    <input type="hidden" id="prodImagen">
   </div>
   <div class="editor-actions">
     <button id="btnSaveProd">Guardar cambios</button>
