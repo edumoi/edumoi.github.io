@@ -160,7 +160,7 @@ function renderizarProductosPage(lista, page){
     actionsRow.className = 'actions-row';
     const a = document.createElement('a');
     a.className = 'consultar';
-    a.href = `https://wa.me/51900008840?text=Hola,%20me%20interesa%20el%20producto%20${encodeURIComponent(p.codigo)}`;
+    a.href = `https://wa.me/51900008840?text=Hola,%20me%20interesa%20el%20producto%20${encodeURIComponent(p.codigo)}:%20${encodeURIComponent(p.nombre)}`;
     a.target = '_blank';
     a.textContent = 'Consultar';
     actionsRow.appendChild(a);
